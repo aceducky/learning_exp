@@ -1,14 +1,20 @@
-import { useLoaderData } from "react-router";
+import usePostsStore from "../stores/post_store";
 
 function PostHome() {
-  const posts = useLoaderData();//Have written useLoaderData for now, check routes.jsx
+  const posts = usePostsStore((state) => state.posts);
   return (
-    <div>
-      <div>PostHome</div>
-      <div>
-        
-      </div>
-    </div>
+    <>
+      {posts.length === 0
+        ? "No posts found"
+        : posts.map((post) => (
+            <div key={post.id} className="border p-3">
+              <h2>
+                {post.id}.{post.title.toUpperCase()}
+              </h2>
+              <p>post.body</p>
+            </div>
+          ))}
+    </>
   );
 }
 

@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router";
 import PostHome from "./routes/PostHome";
 import { getPosts } from "./api/post_api";
+import usePostsStore from "./stores/post_store";
 
 export const router = createBrowserRouter([
   {
@@ -8,10 +9,9 @@ export const router = createBrowserRouter([
     element: <PostHome />,
     loader: async () => {
       const res = await getPosts();
-      const posts = res.data;
-      //work to do , should i go for using zustand to store Posts as a state?
-      // im using zustand but I've written useLoader data in the <PostHome /> for now
-      //but i can also use zustand for setting posts state and still return data for the element, what should i do
+      const setInitialPosts = usePostsStore.getState().setInitialPosts;
+      console.log(res.data);
+      setInitialPosts(res.data);
     },
   },
 ]);
