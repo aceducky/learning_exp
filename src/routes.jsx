@@ -10,7 +10,6 @@ export const router = createBrowserRouter([
     loader: async () => {
       const res = await getPosts();
       const setInitialPosts = usePostsStore.getState().setInitialPosts;
-      console.log(res.data);
       setInitialPosts(res.data);
     },
   },

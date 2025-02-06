@@ -8,7 +8,7 @@ function PostHome() {
       {posts.length === 0 ? (
         "No posts found"
       ) : (
-        <div className="grid grid-cols-2 m-2 gap-1">
+        <div className="grid grid-cols-2 m-2 gap-3">
           {posts.map((post) => (
             <Card
               key={post.id}
