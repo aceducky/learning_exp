@@ -1,4 +1,4 @@
-import {create} from 'zustand';
+import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
 
 const usePostsStore = create(
@@ -6,11 +6,16 @@ const usePostsStore = create(
         {
             posts: []
         },
-        (set,get) => ({
+        (set, get) => ({
             setInitialPosts: (newPosts) => set(() => ({
                 posts: [...newPosts]
             })),
-            getPosts:()=> get().posts
+            getPosts: () => get().posts,
+            deletePosts: (pid) => set(() => ({
+                posts: get().posts.filter(post => post.id != pid)
+            }
+            ))
+            ,
         })
     )
 );
