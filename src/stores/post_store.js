@@ -7,7 +7,7 @@ const usePostsStore = create(
     getPosts: () => get().posts,
     deletePostWithId: (pid) => {
       set(() => ({
-        posts: get().posts.filter((post) => post.id !== pid),
+        posts: get().posts.filter(post => post.id !== pid),
       }))
     },
   }))

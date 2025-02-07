@@ -1,21 +1,9 @@
 /* eslint-disable react/prop-types */
-import usePostsStore from "../stores/post_store";
-import { deletePostWithId } from "../api/post_api";
+import { useFetcher } from "react-router";
 
 function Card({ id, title, body }) {
-  const deletePostStore = usePostsStore((state) => state.deletePostWithId);
-  async function onClickDelete(id) {
-    try {
-      const res = await deletePostWithId(id);
-      if (res.status === 200) {
-        deletePostStore(id);
-      } else {
-        console.log("Failed");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const fetcher = useFetcher();
+
   return (
     <div
       key={id}
@@ -25,12 +13,15 @@ function Card({ id, title, body }) {
         {id}. {title.toUpperCase()}
       </h2>
       <p>{body}</p>
-      <button
-        className="p-2 rounded-sm bg-red-400 hover:bg-red-500 hover:scale-105"
-        onClick={() => onClickDelete(id)}
-      >
-        Delete
-      </button>
+      <fetcher.Form method="DELETE">
+        <button
+          className="p-2 rounded-sm bg-red-400 hover:bg-red-500 hover:scale-105"
+          name="id"
+          value={id}
+        >
+          Delete
+        </button>
+      </fetcher.Form>
     </div>
   );
 }
